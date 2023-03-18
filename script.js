@@ -1,14 +1,4 @@
-function getPosition() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      displayPrayerTimes(position);
-    }, function() {
-      alert("Please enable location access in your browser settings to view prayer times.");
-    });
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
-}
+
 
 
 function getHijriDate() {
@@ -40,30 +30,7 @@ function getHijriDate() {
 }
 
 function getPosition() {
-  if (navigator.permissions) {
-    navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
-      if (permissionStatus.state === 'granted') {
-        // User has granted permission, continue to get location
-        getPosition();
-      } else if (permissionStatus.state === 'prompt') {
-        // Permission is not granted or denied, show a prompt to ask for permission
-        navigator.geolocation.getCurrentPosition(function(position) {
-          // User has granted permission, continue to get location
-          displayPrayerTimes(position);
-        }, function() {
-          // User has denied permission, show an error message
-          alert("Please enable location services to use this feature.");
-        });
-      } else if (permissionStatus.state === 'denied') {
-        // Permission is denied, show an error message
-        alert("Please enable location services to use this feature.");
-      }
-    });
-  } else {
-    // Geolocation not supported, show an error message
-    alert("Geolocation is not supported by your browser.");
-  }
-  
+
   navigator.geolocation.getCurrentPosition(function(position) {
     displayPrayerTimes(position);
   });
