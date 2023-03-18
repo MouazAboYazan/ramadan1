@@ -1,33 +1,4 @@
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        document.getElementById("result").innerHTML = "Geolocation is not supported by this browser.";
-      }
-    }
 
-    function showPosition(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      document.getElementById("result").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
-    }
-
-    function showError(error) {
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          document.getElementById("result").innerHTML = "User denied the request for Geolocation.";
-          break;
-        case error.POSITION_UNAVAILABLE:
-          document.getElementById("result").innerHTML = "Location information is unavailable.";
-          break;
-        case error.TIMEOUT:
-          document.getElementById("result").innerHTML = "The request to get user location timed out.";
-          break;
-        case error.UNKNOWN_ERROR:
-          document.getElementById("result").innerHTML = "An unknown error occurred.";
-          break;
-      }
-    }
 
 function getHijriDate() {
   var date = new Date();
@@ -58,6 +29,30 @@ function getHijriDate() {
 }
 
 function getPosition() {
+  if (navigator.permissions) {
+    navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
+      if (permissionStatus.state === 'granted') {
+        // User has granted permission, continue to get location
+        getPosition();
+      } else if (permissionStatus.state === 'prompt') {
+        // Permission is not granted or denied, show a prompt to ask for permission
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // User has granted permission, continue to get location
+          displayPrayerTimes(position);
+        }, function() {
+          // User has denied permission, show an error message
+          alert("Please enable location services to use this feature.");
+        });
+      } else if (permissionStatus.state === 'denied') {
+        // Permission is denied, show an error message
+        alert("Please enable location services to use this feature.");
+      }
+    });
+  } else {
+    // Geolocation not supported, show an error message
+    alert("Geolocation is not supported by your browser.");
+  }
+  
   navigator.geolocation.getCurrentPosition(function(position) {
     displayPrayerTimes(position);
   });
