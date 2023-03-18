@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أوقات الصلاة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>أوقات الصلاة</h1>
+    <div id="dates">
+      <div id="hijri-date"></div>
+      <div id="gregorian-date"></div>
+    </div>
+    <table>
+      <tr>
+        <th>الصلاة</th>
+        <th>الوقت</th>
+      </tr>
+      <tr>
+        <td>الفجر</td>
+        <td id="fajr-time"></td>
+      </tr>
+      <tr>
+        <td>الظهر</td>
+        <td id="dhuhr-time"></td>
+      </tr>
+      <tr>
+        <td>العصر</td>
+        <td id="asr-time"></td>
+      </tr>
+      <tr>
+        <td>المغرب</td>
+        <td id="maghrib-time"></td>
+      </tr>
+      <tr>
+        <td>العشاء</td>
+        <td id="isha-time"></td>
+      </tr>
+    </table>
+    <div id="next-prayer"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
