@@ -1,23 +1,17 @@
 
-function askForLocationPermission() {
-  // check if the user has already granted permission to access their location
-  if (navigator.permissions && navigator.permissions.query) {
-    navigator.permissions.query({name: 'geolocation'}).then(function(permissionStatus) {
-      if (permissionStatus.state === 'granted') {
-        // the user has already granted permission, do nothing
-        return;
-      }
-      // the user has not granted permission, show a pop-up message
-      var popup = confirm("هذا الموقع يحتاج للوصول إلى موقعك لعرض أوقات الصلاة الصحيحة، هل ترغب في تفعيل الخدمة؟");
-      if (popup === true) {
-        // if the user clicks OK, redirect them to the browser's location settings page
-        window.location.href = "https://www.google.com/maps/search/?api=1";
-      }
-    });
-  }
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(success, error);
+} else {
+  alert("Geolocation is not available on this device.");
 }
 
-askForLocationPermission();
+function success(position) {
+  // Code to execute if user allows location access
+}
+
+function error() {
+  alert("Unable to retrieve your location. Please try again later.");
+}
 
 
 function getHijriDate() {
