@@ -1,3 +1,14 @@
+function getPosition() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      displayPrayerTimes(position);
+    }, function() {
+      alert("Please enable location access in your browser settings to view prayer times.");
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
 
 
 function getHijriDate() {
